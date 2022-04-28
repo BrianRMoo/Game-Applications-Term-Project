@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour {
+    //using the F1 F2 F3 keys the player can change the viewpoint of the camera
 
     public GameObject top, fps, behind;
     
