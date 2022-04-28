@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-//Not Fully working yet...
+
 //Controls the life of the player
 public class PlayerHealth1 : MonoBehaviour {
 
@@ -20,20 +20,23 @@ public class PlayerHealth1 : MonoBehaviour {
         healthBar.maxValue = 100;
         healthBar.minValue = 0;
     }
+    //make sure player health is update every frame
     private void Update()
     {
         healthBar.value = playerHealthValue;
-
+       //if player health ever reaches 0 or lower end game
       if(health <= 0)
         {
             //GameOver
 
-            //playv deathFX
+            //play deathFX
             Instantiate(playerDeathFx, transform.position, transform.rotation);
             //Reset Level
             SceneManager.LoadScene("main", LoadSceneMode.Single);
         }
     }
+    
+    //change health on collision
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("Enemy"))
@@ -41,7 +44,8 @@ public class PlayerHealth1 : MonoBehaviour {
             HealthValueChange();
         }
     }
-
+    
+    //health change function -> lower it by one int each time it is called and set new health value
     public void HealthValueChange()
     {
         healthBar.value -= 1;
