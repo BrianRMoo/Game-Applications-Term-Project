@@ -8,10 +8,14 @@ using UnityEngine.UI;
 //Controls when the game ends, doesnt start until after the menu has been deactivated and the HUD object becomes active
 public class GameTimer : MonoBehaviour
 {
+    //timer
     public static float timer = 60;
 
+    //viewable timer text
     public Text TimerText;
+    //player highscore text
     public Text highScoreText;
+    //your current score
     public Text yourScoreText;
 
     public static bool playerKilled;
@@ -23,6 +27,7 @@ public class GameTimer : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+    //disable the gameover ui 
         endGamePanel.SetActive(false);
         
     }
@@ -30,17 +35,22 @@ public class GameTimer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //start timer on update
         timer -= Time.deltaTime * 1;
         TimerText.text = timer.ToString("0");
+        
+        //if time is out or player died
         if (timer <= 0 || playerKilled)
         {
             TimerText.text = 0.ToString();
-
+            
+            //disable current onscreen ui
             for (int i = 0; i < disableOverlay.Length; i++)
             {
 
                 disableOverlay[i].SetActive(false);
             }
+            //engage gameover
             Invoke("EndGame", 5);
             endGamePanel.SetActive(true);
             highScoreText.text = PlayerPrefs.GetInt("highScore").ToString();
