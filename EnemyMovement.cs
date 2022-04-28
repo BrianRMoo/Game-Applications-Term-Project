@@ -16,9 +16,9 @@ public class EnemyMovement : MonoBehaviour
 
     private void Start()
     {
+        //get player movement object -> the player holds this script
         Player = GetComponent<PlayerMovement>();
-        //to ensure that there is no null for player, which would happen due to using a prefab
-        //break prefab only sometimes works
+        //to ensure that there is no null for player, which would happen due to using a prefab     
         if (Player == null)
         {
             Player = FindObjectOfType<PlayerMovement>();
@@ -34,11 +34,17 @@ public class EnemyMovement : MonoBehaviour
     void Update()
     {
         transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+        
+        //to ensure that the enemy does not shoot an obsurd
+        //amount of shots at once
+        //check to verify if player should be shot at
+        //if not then start cooldown timer
         if (!canShoot)
         {
             timer -= Time.deltaTime;
 
         }
+        //enemy can shoot once timer hits zero
         if (timer <= 0)
         {
             timer = 1;
